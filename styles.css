@@ -1,0 +1,23 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0c1017;
+    color: #f3f4f6;
+    background-image: radial-gradient(circle at 50% 20%, #1a2333 0%, #0c1017 100%);
+    min-height: 100vh;
+}
+.cinzel-font { font-family: 'Cinzel', serif; }
+.royal-border {
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+.gold-gradient-text {
+    background: linear-gradient(180deg, #fff2a3 0%, #d4af37 50%, #aa771c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.card-glow-common { box-shadow: 0 0 15px rgba(156, 163, 175, 0.4); border-color: #9ca3af; }
+.card-glow-rare { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); border-color: #ef4444; }
+.card-glow-epic { box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); border-color: #a855f7; }
+.card-glow-legendary { box-shadow: 0 0 25px rgba(59, 130, 246, 0.7); border-color: #3b82f6; }
+.card-glow-champion { box-shadow: 0 0 30px rgba(234, 179, 8, 0.8); border-color: #eab308; }
+.tower-glow { box-shadow: 0 0 25px rgba(234, 88, 12, 0.6); border-color: #ea580c; }

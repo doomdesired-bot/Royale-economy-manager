@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Economy Manager - Clash Royale Deck & Tower Loadout</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cinzel & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+        }
+        .cinzel-font {
+            font-family: 'Cinzel', serif;
+        }
+        .royal-border {
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- TOP HEADER NAVBAR -->
+    <header class="bg-[#111827] border-b border-amber-500/30 sticky top-0 z-30 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- LOGO / BRANDING -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-gray-950 font-black text-xl shadow-lg">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div>
+                    <h1 class="cinzel-font text-base sm:text-lg font-black text-amber-300 leading-tight tracking-wide">ROYAL ECONOMY MANAGER</h1>
+                    <p class="text-[10px] text-gray-400 font-semibold">Clash Royale 5-Deck Loadout & Tower Manager</p>
+                </div>
+            </div>
+
+            <!-- PLAYER SWITCHER -->
+            <div class="flex items-center bg-gray-900/90 p-1 rounded-2xl border border-gray-800 shadow-inner">
+                <button id="tab-mage" onclick="switchPlayer('Mage master117')" class="px-4 py-2 rounded-xl text-xs font-bold transition cinzel-font bg-amber-600 text-gray-950 shadow">
+                    MAGE MASTER117
+                </button>
+                <button id="tab-faver" onclick="switchPlayer('Faversaver')" class="px-4 py-2 rounded-xl text-xs font-bold transition cinzel-font text-gray-400 hover:text-white">
+                    FAVERSAVER
+                </button>
+            </div>
+
+            <!-- CROWN VAULT & MATCH RECORDING -->
+            <div class="flex items-center gap-3">
+                <div class="bg-gray-900/90 border border-amber-500/40 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow">
+                    <i class="fa-solid fa-crown text-amber-400 text-sm"></i>
+                    <div>
+                        <div class="text-[9px] uppercase font-bold text-gray-400 leading-tight">CROWN VAULT</div>
+                        <div id="crown-balance" class="text-sm font-black text-amber-300 leading-tight">0</div>
+                    </div>
+                </div>
+
+                <button onclick="openMatchModal()" class="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-gray-950 font-black text-xs px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-swords"></i> Record Match
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 mt-6 space-y-6">
+
+        <!-- HEAD-TO-HEAD STATS BAR -->
+        <section class="bg-[#111827]/80 rounded-2xl p-4 royal-border shadow-xl">
+            <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-bold">
+                <div class="flex items-center gap-2 text-amber-300 cinzel-font">
+                    <i class="fa-solid fa-shield text-sm"></i> HEAD-TO-HEAD RECORD:
+                </div>
+                <div class="flex items-center gap-6">
+                    <span class="text-gray-300">Mage Wins: <strong id="stat-mage-wins" class="text-emerald-400 font-black">0</strong></span>
+                    <span class="text-gray-300">Faver Wins: <strong id="stat-faver-wins" class="text-emerald-400 font-black">0</strong></span>
+                    <span class="text-gray-400">Total Battles: <strong id="stat-total-battles" class="text-gray-200">0</strong></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DECK SELECTOR & CHEST / ROLL ACTIONS -->
+        <section class="flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- DECK SELECTOR TABS -->
+            <div class="flex items-center gap-2">
+                <h2 id="active-player-title" class="cinzel-font text-sm sm:text-base font-black text-amber-300 mr-2">Player (Deck 1)</h2>
+                <div class="flex items-center bg-gray-900/90 p-1 rounded-xl border border-gray-800 text-xs">
+                    <button id="deck-tab-0" onclick="switchDeck(0)" class="px-2.5 py-1.5 rounded-lg transition font-black">Deck 1</button>
+                    <button id="deck-tab-1" onclick="switchDeck(1)" class="px-2.5 py-1.5 rounded-lg transition font-black">Deck 2</button>
+                    <button id="deck-tab-2" onclick="switchDeck(2)" class="px-2.5 py-1.5 rounded-lg transition font-black">Deck 3</button>
+                    <button id="deck-tab-3" onclick="switchDeck(3)" class="px-2.5 py-1.5 rounded-lg transition font-black">Deck 4</button>
+                    <button id="deck-tab-4" onclick="switchDeck(4)" class="px-2.5 py-1.5 rounded-lg transition font-black">Deck 5</button>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS: ROLL CARD + CHESTS + CATALOG -->
+            <div class="flex flex-wrap items-center gap-2">
+                <!-- ROLL CARD CHEST BUTTON -->
+                <button onclick="openRollModal()" class="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-gray-950 px-3.5 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-lg">
+                    <i class="fa-solid fa-dice text-sm"></i> Roll Card (Cap: <span id="highest-cap-display">1 Elixir</span>)
+                </button>
+
+                <!-- 50 CROWN SPECIAL CHESTS -->
+                <button onclick="buyRandomEvoChest()" class="bg-gradient-to-r from-purple-800 to-indigo-900 hover:from-purple-700 hover:to-indigo-800 text-purple-200 border border-purple-500/50 px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1 shadow">
+                    <i class="fa-solid fa-sparkles text-purple-400"></i> Evo Chest (50 👑)
+                </button>
+
+                <button onclick="buyRandomHeroChest()" class="bg-gradient-to-r from-amber-700 to-yellow-800 hover:from-amber-600 hover:to-yellow-700 text-amber-100 border border-amber-500/50 px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1 shadow">
+                    <i class="fa-solid fa-shield-halved text-amber-300"></i> Hero Chest (50 👑)
+                </button>
+
+                <button onclick="buyRandomChampionChest()" class="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-gray-950 border border-orange-400 px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1 shadow">
+                    <i class="fa-solid fa-trophy text-amber-950"></i> Champion Chest (50 👑)
+                </button>
+
+                <!-- CATALOG BUTTON -->
+                <button onclick="openCatalogModal()" class="bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow ml-1">
+                    <i class="fa-solid fa-book-bookmark"></i> Catalog (<span id="catalog-count">0</span>)
+                </button>
+            </div>
+
+        </section>
+
+        <!-- DECK GRID (Tower Header Banner + 8 Cards Grid) -->
+        <section id="deck-slots-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Dynamically populated via script.js -->
+        </section>
+
+    </main>
+
+    <!-- ROLL CARD MODAL -->
+    <div id="roll-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#111827] border-2 border-amber-500/50 rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeRollModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div>
+                <h3 id="modal-slot-title" class="cinzel-font text-lg font-black text-amber-300">Roll Card Chest</h3>
+                <p id="modal-slot-subtitle" class="text-xs text-gray-400 mt-0.5">Select a rarity to draw a random card for your Catalog:</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs font-bold">
+                <button onclick="confirmAndRoll('common')" class="bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 p-3 rounded-xl flex items-center justify-between">
+                    <span>Common</span> <span class="text-amber-400">5 👑</span>
+                </button>
+                <button onclick="confirmAndRoll('rare')" class="bg-red-950/60 hover:bg-red-900/60 text-red-200 border border-red-700/60 p-3 rounded-xl flex items-center justify-between">
+                    <span>Rare</span> <span class="text-amber-400">10 👑</span>
+                </button>
+                <button onclick="confirmAndRoll('epic')" class="bg-purple-950/60 hover:bg-purple-900/60 text-purple-200 border border-purple-700/60 p-3 rounded-xl flex items-center justify-between">
+                    <span>Epic</span> <span class="text-amber-400">15 👑</span>
+                </button>
+                <button onclick="confirmAndRoll('legendary')" class="bg-blue-950/60 hover:bg-blue-900/60 text-blue-200 border border-blue-700/60 p-3 rounded-xl flex items-center justify-between">
+                    <span>Legendary</span> <span class="text-amber-400">30 👑</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATALOG MODAL -->
+    <div id="catalog-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#111827] border-2 border-amber-500/50 rounded-2xl max-w-4xl w-full max-h-[85vh] flex flex-col p-6 shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <div>
+                    <h3 class="cinzel-font text-lg font-black text-amber-300">UNLOCKED CARD CATALOG</h3>
+                    <p class="text-xs text-gray-400">Total Unlocked Cards: <strong id="modal-catalog-count" class="text-amber-400">0</strong></p>
+                </div>
+                <button onclick="closeCatalogModal()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- TARGET SLOT SELECTOR -->
+            <div class="flex items-center gap-3 bg-gray-900 p-3 rounded-xl border border-gray-800 text-xs">
+                <label class="font-bold text-gray-300 shrink-0">Select Target Slot to Equip Into:</label>
+                <select id="catalog-target-slot" class="bg-gray-800 border border-gray-700 text-amber-300 font-bold px-3 py-1.5 rounded-lg w-full focus:outline-none">
+                    <!-- Options inserted via JS -->
+                </select>
+            </div>
+
+            <!-- CATALOG GRID -->
+            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 overflow-y-auto pr-2 custom-scrollbar flex-1">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOWER CATALOG MODAL -->
+    <div id="tower-catalog-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#111827] border-2 border-orange-500/50 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h3 class="cinzel-font text-lg font-black text-orange-300">TOWER TROOP MANAGEMENT</h3>
+                <button onclick="closeTowerCatalogModal()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="tower-catalog-grid" class="space-y-3">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MATCH RECORDING MODAL -->
+    <div id="match-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-[#111827] border-2 border-emerald-500/50 rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
+            <button onclick="closeMatchModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="cinzel-font text-lg font-black text-emerald-400">RECORD MATCH RESULT</h3>
+            
+            <div class="space-y-3 text-xs font-bold">
+                <!-- Mage Master Score -->
+                <div class="bg-gray-900 p-3 rounded-xl border border-gray-800 space-y-2">
+                    <div class="flex justify-between text-amber-300">
+                        <span>Mage master117 Crowns Earned:</span>
+                        <span id="match-mage-score-disp" class="font-black">+0 Crowns</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="setPlayerScore('Mage master117', 0)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">0</button>
+                        <button onclick="setPlayerScore('Mage master117', 1)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">1👑</button>
+                        <button onclick="setPlayerScore('Mage master117', 2)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">2👑</button>
+                        <button onclick="setPlayerScore('Mage master117', 3)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">3👑</button>
+                    </div>
+                </div>
+
+                <!-- Faversaver Score -->
+                <div class="bg-gray-900 p-3 rounded-xl border border-gray-800 space-y-2">
+                    <div class="flex justify-between text-amber-300">
+                        <span>Faversaver Crowns Earned:</span>
+                        <span id="match-faver-score-disp" class="font-black">+0 Crowns</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="setPlayerScore('Faversaver', 0)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">0</button>
+                        <button onclick="setPlayerScore('Faversaver', 1)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">1👑</button>
+                        <button onclick="setPlayerScore('Faversaver', 2)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">2👑</button>
+                        <button onclick="setPlayerScore('Faversaver', 3)" class="bg-gray-800 hover:bg-gray-700 py-1.5 rounded text-center">3👑</button>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="submitMatchResult()" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-gray-950 font-black py-2.5 rounded-xl text-xs transition shadow">
+                Submit Match Result
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-amber-500 text-gray-950 px-4 py-2.5 rounded-xl font-bold text-xs shadow-2xl transition-opacity duration-300 opacity-0 pointer-events-none z-50">
+        Notification
+    </div>
+<!-- SCRIPT FILES -->
+<script src="cards.js"></script>
+<script src="ui.js"></script>
+<script src="actions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
